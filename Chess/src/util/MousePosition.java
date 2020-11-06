@@ -12,11 +12,11 @@ public class MousePosition extends MouseMotionAdapter {
 		mouseX = e.getX();
 		mouseY = e.getY();
 	}
-	
+
 	public int getMouseX() {
 		return mouseX;
 	}
-	
+
 	public int getMouseY() {
 		return mouseY;
 	}

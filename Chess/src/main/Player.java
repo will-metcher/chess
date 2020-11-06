@@ -19,27 +19,21 @@ public class Player {
 	/**
 	 * Captures a piece, adding it to capturedPieces and adding it's value to score
 	 * 
-	 * @param piece the Piece to capture
+	 * @param piece the Piece that was captured
 	 */
 	public void capturePiece(Piece piece) {
 		capturedPieces.add(piece);
 		score += piece.getValue();
 	}
-	
-	public ArrayList<Type> getUniqueTypes() {
-		ArrayList<Type> types = new ArrayList<Type>();
-		types.add(Type.QUEEN);
-		for(Piece p : capturedPieces) {
-			if(!types.contains(p.getType())) {
-				types.add(p.getType());
-			}
-		}
-		
-		return types;
-	}
-	
+
+	/**
+	 * Promotes the pawn to the piece selected in the promotion menu
+	 * 
+	 * @param x The x location in the promotion menu grid
+	 * @param y The y location in the promotion menu grid
+	 */
 	public void getPromotionChoice(int x, int y) {
-		Piece p = Board.getPieceByColorAndType(color, getUniqueTypes().get(x + (y*2))).get(0);
+		Piece p = Board.getPieceByColorAndType(color, Type.getPromotableTypes().get(x + (y * 2))).get(0);
 		Board.promote(p);
 	}
 
@@ -49,7 +43,7 @@ public class Player {
 	 * @return score
 	 */
 	public int getScore() {
-		return this.score;
+		return score;
 	}
 
 	/**
@@ -58,6 +52,6 @@ public class Player {
 	 * @return capturedPieces
 	 */
 	public ArrayList<Piece> getCapturedPieces() {
-		return this.capturedPieces;
+		return capturedPieces;
 	}
 }

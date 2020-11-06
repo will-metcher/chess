@@ -2,7 +2,6 @@ package pieces;
 
 import main.Board;
 import main.Side;
-import main.Square;
 import util.Vector2;
 
 public class Pawn extends Piece {
@@ -10,7 +9,6 @@ public class Pawn extends Piece {
 	public Pawn(Side side, int x, int y) {
 		super(side, x, y);
 		type = Type.PAWN;
-		value = 1;
 		loadImage();
 	}
 

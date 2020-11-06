@@ -2,7 +2,6 @@ package pieces;
 
 import main.Board;
 import main.Side;
-import main.Square;
 import util.Vector2;
 
 public class King extends Piece {

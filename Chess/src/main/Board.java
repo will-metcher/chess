@@ -77,12 +77,8 @@ public class Board {
 	 * @return true if vec is within the bounds and false if it is not
 	 */
 	public static boolean isInBounds(Vector2 vec) {
-		if (vec.getX() <= Game.BOARD_WIDTH - 1 && vec.getX() >= 0 && vec.getY() <= Game.BOARD_HEIGHT - 1
-				&& vec.getY() >= 0) {
-			return true;
-		}
-
-		return false;
+		return (vec.getX() <= Game.BOARD_WIDTH - 1 && vec.getX() >= 0 && vec.getY() <= Game.BOARD_HEIGHT - 1
+				&& vec.getY() >= 0);
 	}
 
 	/**
@@ -249,7 +245,6 @@ public class Board {
 			wasKingInCheck = isInCheck(
 					(King) getPieceByColorAndType(Side.getOtherSide(Game.playersTurn), Type.KING).get(0));
 
-			// TODO Allow player to select piece to promote pawn to
 			// promotion
 			if (selectedPiece.getType() == Type.PAWN) {
 				int y = 0;
@@ -271,22 +266,19 @@ public class Board {
 	}
 
 	public static void promote(Piece p) {
+		Square squareOnPromotionPosition = getSquareOnPosition(promotionPos);
 		switch (p.getType()) {
 		case QUEEN:
-			getSquareOnPosition(promotionPos)
-					.setPiece(new Queen(Game.playersTurn, promotionPos.getX(), promotionPos.getY()));
+			squareOnPromotionPosition.setPiece(new Queen(Game.playersTurn, promotionPos.getX(), promotionPos.getY()));
 			break;
 		case ROOK:
-			getSquareOnPosition(promotionPos)
-					.setPiece(new Rook(Game.playersTurn, promotionPos.getX(), promotionPos.getY()));
+			squareOnPromotionPosition.setPiece(new Rook(Game.playersTurn, promotionPos.getX(), promotionPos.getY()));
 			break;
 		case KNIGHT:
-			getSquareOnPosition(promotionPos)
-					.setPiece(new Knight(Game.playersTurn, promotionPos.getX(), promotionPos.getY()));
+			squareOnPromotionPosition.setPiece(new Knight(Game.playersTurn, promotionPos.getX(), promotionPos.getY()));
 			break;
 		case BISHOP:
-			getSquareOnPosition(promotionPos)
-					.setPiece(new Bishop(Game.playersTurn, promotionPos.getX(), promotionPos.getY()));
+			squareOnPromotionPosition.setPiece(new Bishop(Game.playersTurn, promotionPos.getX(), promotionPos.getY()));
 			break;
 		}
 
@@ -323,15 +315,11 @@ public class Board {
 	 * @return true if there is a piece and false if there is not
 	 */
 	public static boolean isPositionEmpty(Vector2 pos) {
-		if (getSquareOnPosition(pos).getPiece() == null) {
-			return true;
-		}
-
-		return false;
+		return (getSquareOnPosition(pos).getPiece() == null);
 	}
 
 	/**
-	 * Returns the index of a Square in the squares array
+	 * Returns the index of a Square in the squares array as a Vector2
 	 * 
 	 * @param square The square to get the index from
 	 * @return The index as a Vector2 if the Square was found in the array,

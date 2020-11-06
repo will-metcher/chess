@@ -10,7 +10,6 @@ public class Queen extends Piece {
 
 	public Queen(Side side, int x, int y) {
 		super(side, x, y);
-		value = 9;
 		type = Type.QUEEN;
 		loadImage();
 	}
@@ -38,5 +37,4 @@ public class Queen extends Piece {
 			}
 		}
 	}
-
 }

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import main.Board;
 import main.Game;
 import main.Side;
 import main.Square;
@@ -15,7 +14,6 @@ import util.Vector2;
 
 public abstract class Piece {
 
-	protected int value;
 	protected int timesMoved = 0;
 
 	protected Type type;
@@ -26,7 +24,7 @@ public abstract class Piece {
 	private String path;
 	protected Square square;
 	protected Vector2 position;
-	
+
 	protected boolean selected = false;
 
 	/**
@@ -105,7 +103,7 @@ public abstract class Piece {
 
 	// value getter
 	public int getValue() {
-		return this.value;
+		return type.getValue();
 	}
 
 	// position getter
@@ -127,15 +125,15 @@ public abstract class Piece {
 	public int getY() {
 		return position.getY();
 	}
-	
+
 	public boolean isSelected() {
 		return selected;
 	}
-	
+
 	public void select() {
 		selected = true;
 	}
-	
+
 	public void deselect() {
 		selected = false;
 	}

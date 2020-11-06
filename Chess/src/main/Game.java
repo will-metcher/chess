@@ -4,13 +4,8 @@ import java.awt.BasicStroke;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.TexturePaint;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -50,7 +45,7 @@ public class Game extends Canvas implements Runnable {
 
 	public static Side playersTurn = Side.WHITE;
 	public static GameState state = GameState.PLAYING;
-	
+
 	public static String projectPath;
 
 	// Initializes the JFrame and instantiates the MouseListener, Board and Players
@@ -68,7 +63,7 @@ public class Game extends Canvas implements Runnable {
 		this.addMouseMotionListener(mousePosition);
 		frame.add(this);
 		frame.setVisible(true);
-		
+
 		projectPath = new File("").getAbsolutePath();
 
 		new Board();
@@ -119,13 +114,7 @@ public class Game extends Canvas implements Runnable {
 
 		g.drawRect(indicatorX, indicatorY, SQUARE_SIZE * (BOARD_WIDTH / 2), SQUARE_SIZE);
 
-		// draw selected pieces on cursor
-		if (Board.selectedPiece != null) {
-			g.drawImage(Board.selectedPiece.getImage(), mousePosition.getMouseX() - SQUARE_SIZE / 2,
-					mousePosition.getMouseY() - SQUARE_SIZE / 2, SQUARE_SIZE, SQUARE_SIZE, null);
-		}
-
-		// draw king in check
+		// draw kings in check
 		King bk = (King) Board.getPieceByColorAndType(Side.BLACK, Type.KING).get(0);
 		King wk = (King) Board.getPieceByColorAndType(Side.WHITE, Type.KING).get(0);
 
@@ -139,24 +128,37 @@ public class Game extends Canvas implements Runnable {
 					SQUARE_SIZE);
 		}
 
+		// draw selected pieces on cursor
+		if (Board.selectedPiece != null) {
+			g.drawImage(Board.selectedPiece.getImage(), mousePosition.getMouseX() - SQUARE_SIZE / 2,
+					mousePosition.getMouseY() - SQUARE_SIZE / 2, SQUARE_SIZE, SQUARE_SIZE, null);
+		}
+
 		// draw captured pieces for white
 		for (int w = 0; w < white.getCapturedPieces().size(); w++) {
 			Piece p = white.getCapturedPieces().get(w);
-			int x = (w % 8) * CAPTURED_SIZE;
-			int y = (int) (SQUARE_SIZE * BOARD_HEIGHT + (SQUARE_SIZE / 2 * Math.floor(w / 8)));
+			int x = (w % 7) * CAPTURED_SIZE + CAPTURED_SIZE;
+			int y = (int) (SQUARE_SIZE * BOARD_HEIGHT + (SQUARE_SIZE / 2 * Math.floor(w / 7)));
 			g.drawImage(p.getImage(), x, y, CAPTURED_SIZE, CAPTURED_SIZE, null);
 		}
 
 		// draw captured pieces for black
 		for (int b = 0; b < black.getCapturedPieces().size(); b++) {
 			Piece p = black.getCapturedPieces().get(b);
-			int x = (b % 8 * CAPTURED_SIZE) + (SQUARE_SIZE * BOARD_WIDTH / 2);
-			int y = (int) (SQUARE_SIZE * BOARD_HEIGHT + (SQUARE_SIZE / 2 * Math.floor(b / 8)));
+			int x = (b % 7 * CAPTURED_SIZE) + (SQUARE_SIZE * BOARD_WIDTH / 2) + CAPTURED_SIZE;
+			int y = (int) (SQUARE_SIZE * BOARD_HEIGHT + (SQUARE_SIZE / 2 * Math.floor(b / 7)));
 			g.drawImage(p.getImage(), x, y, CAPTURED_SIZE, CAPTURED_SIZE, null);
 		}
 
+		// draw scores
+		g.setColor(Color.WHITE);
+		g.drawString(String.valueOf(white.getScore()), 10, SQUARE_SIZE * BOARD_HEIGHT + CAPTURED_SIZE);
+		g.drawString(String.valueOf(black.getScore()), 10 + (SQUARE_SIZE * BOARD_WIDTH / 2),
+				SQUARE_SIZE * BOARD_HEIGHT + CAPTURED_SIZE);
+
+		// draw promotion grid
 		if (state == GameState.PROMOTING) {
-			ArrayList<Type> types = getPlayerByColor(playersTurn).getUniqueTypes();
+			ArrayList<Type> types = Type.getPromotableTypes();
 			for (int i = 0; i < types.size(); i++) {
 				int x = i % 2 * BOARD_WIDTH / 2 * SQUARE_SIZE;
 				int y = Math.round(i / 2) * BOARD_HEIGHT / 2 * SQUARE_SIZE;
@@ -203,7 +205,7 @@ public class Game extends Canvas implements Runnable {
 	 */
 	public static void playSound() {
 		try {
-			File soundPath = new File(projectPath+"/res/sound.wav");
+			File soundPath = new File(projectPath + "/res/sound.wav");
 
 			if (!soundPath.exists()) {
 				System.out.println("path not found");
@@ -219,7 +221,6 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 
-	
 	public synchronized void start() {
 		thread = new Thread(this);
 		thread.start();

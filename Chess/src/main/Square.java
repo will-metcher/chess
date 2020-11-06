@@ -24,11 +24,11 @@ public class Square {
 
 	// piece getter
 	public Piece getPiece() {
-		return this.piece;
+		return piece;
 	}
 
 	// color getter
 	public Color getColor() {
-		return this.color;
+		return color;
 	}
 }

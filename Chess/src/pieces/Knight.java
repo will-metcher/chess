@@ -2,14 +2,12 @@ package pieces;
 
 import main.Board;
 import main.Side;
-import main.Square;
 import util.Vector2;
 
 public class Knight extends Piece {
 
 	public Knight(Side side, int x, int y) {
 		super(side, x, y);
-		value = 3;
 		type = Type.KNIGHT;
 		loadImage();
 	}

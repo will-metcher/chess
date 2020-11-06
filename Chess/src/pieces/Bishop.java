@@ -10,7 +10,6 @@ public class Bishop extends Piece {
 
 	public Bishop(Side side, int x, int y) {
 		super(side, x, y);
-		value = 3;
 		type = Type.BISHOP;
 		loadImage();
 	}

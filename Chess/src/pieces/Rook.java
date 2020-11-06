@@ -10,7 +10,6 @@ public class Rook extends Piece {
 
 	public Rook(Side side, int x, int y) {
 		super(side, x, y);
-		value = 5;
 		type = Type.ROOK;
 		loadImage();
 	}
