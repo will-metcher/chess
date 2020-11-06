@@ -39,7 +39,7 @@ public class Board {
 	}
 
 	/**
-	 * Instantiates and adds the correct Pieces to the correct Square
+	 * Instantiates and adds the correct Pieces to the correct Squares
 	 */
 	public void setupBoard() {
 		squares[0][0].setPiece(new Rook(Side.BLACK, 0, 0));
@@ -95,7 +95,7 @@ public class Board {
 	}
 
 	/**
-	 * Detecting whether or not the specified king is in currently in check or not
+	 * Detecting whether or not the specified king is in currently in check
 	 * 
 	 * @param king The king to be examined
 	 * @return true if the king is in check and false if it is not
@@ -165,7 +165,7 @@ public class Board {
 
 	/**
 	 * Checks whether or not the selected move was valid, moves the pieces if it is,
-	 * otherwise returns the back to their starting positions
+	 * otherwise returns the piece back to it's starting position
 	 * 
 	 * @param click The position the player clicked on
 	 */
@@ -288,10 +288,10 @@ public class Board {
 	}
 
 	/**
-	 * Returns a Square from squares at the specified index
+	 * Returns a Square from squares at the specified indices
 	 * 
 	 * @param pos The index of the wanted Square
-	 * @return The square from the array at the specified index
+	 * @return The square from the array at the specified indices
 	 */
 	public static Square getSquareOnPosition(Vector2 pos) {
 		return squares[pos.getX()][pos.getY()];
@@ -301,14 +301,14 @@ public class Board {
 	 * Returns the piece on the square at the specified position
 	 * 
 	 * @param pos The index of the square to get the piece from
-	 * @return The pieces on the square at the specified index
+	 * @return The piece on the square at the specified index
 	 */
 	public static Piece getPieceOnPosition(Vector2 pos) {
 		return squares[pos.getX()][pos.getY()].getPiece();
 	}
 
 	/**
-	 * Checks whether or not their is a piece on the square at the specified
+	 * Checks whether or not there is a piece on the square at the specified
 	 * position
 	 * 
 	 * @param pos The position to check for a piece
