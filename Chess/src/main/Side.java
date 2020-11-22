@@ -12,8 +12,8 @@ public enum Side {
 	 */
 	public static Side getOtherSide(Side side) {
 		if (side == Side.BLACK) {
-			return side.WHITE;
+			return Side.WHITE;
 		}
-		return side.BLACK;
+		return Side.BLACK;
 	}
 }

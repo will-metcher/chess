@@ -46,6 +46,7 @@ public abstract class Piece {
 	 */
 	protected void loadImage() {
 		String imageName = side.toString().charAt(0) + type.toString() + ".png";
+		System.out.println(path+imageName);
 		try {
 			img = ImageIO.read(new File(path + imageName));
 		} catch (IOException e) {

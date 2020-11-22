@@ -280,6 +280,8 @@ public class Board {
 		case BISHOP:
 			squareOnPromotionPosition.setPiece(new Bishop(Game.playersTurn, promotionPos.getX(), promotionPos.getY()));
 			break;
+		default:
+			break;
 		}
 
 		promotionPos = null;
