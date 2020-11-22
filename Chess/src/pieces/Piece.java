@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import main.Game;
 import main.Side;
 import main.Square;
 import util.Vector2;
@@ -21,7 +20,6 @@ public abstract class Piece {
 
 	private Image img;
 	protected ArrayList<Square> validMoves;
-	private String path;
 	protected Square square;
 	protected Vector2 position;
 
@@ -38,7 +36,6 @@ public abstract class Piece {
 		validMoves = new ArrayList<Square>();
 		this.side = side;
 		position = new Vector2(x, y);
-		path = Game.projectPath + "/res/";
 	}
 
 	/**
@@ -46,15 +43,17 @@ public abstract class Piece {
 	 */
 	protected void loadImage() {
 		String imageName = side.toString().charAt(0) + type.toString() + ".png";
-		System.out.println(path+imageName);
+		String path = getClass().getClassLoader().getResource(imageName).toString().substring(6);
 		try {
-			img = ImageIO.read(new File(path + imageName));
+			img = ImageIO.read(new File(path));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	// Empties validMoves before recalculating
+	/**
+	 * Empties validMoves before recalculating valid moves
+	 */
 	public void calcValidMoves() {
 		validMoves.clear();
 	}
