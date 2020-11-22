@@ -25,7 +25,7 @@ public enum Type {
 	 * Returns an ArrayList containing the Types of Pieces that a Pawn can be
 	 * promoted to
 	 * 
-	 * @return ArrayList of 'promotable' Piece types
+	 * @return ArrayList of 'promotable' Piece types`
 	 */
 	public static ArrayList<Type> getPromotableTypes() {
 		ArrayList<Type> types = new ArrayList<Type>();
